@@ -1,8 +1,0 @@
-
-# Normal exclusions
-node_modules/
-.idea/
-*.log
-*.iml
-target/
-
