@@ -1,0 +1,8 @@
+
+# Exclude Docker-related files for initial commit
+library/Dockerfile
+frontend/Dockerfile
+library/.dockerignore
+frontend/.dockerignore
+docker-compose.yml
+
