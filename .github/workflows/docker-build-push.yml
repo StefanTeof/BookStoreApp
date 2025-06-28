@@ -26,13 +26,13 @@ jobs:
       - name: Build & Push Spring Boot Backend
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./library
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/libapp-backend:latest
 
       - name: Build & Push React Frontend
         uses: docker/build-push-action@v5
         with:
-          context: ../frontend-refactored
+          context: ./frontend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/libapp-ui:latest
