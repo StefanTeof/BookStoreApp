@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: ui
+  template:
+    metadata:
+      labels:
+        component: ui
+    spec:
+      containers:
+        - name: react-app
+          image: stefanteof/libapp-ui:latest
+          ports:
+            - containerPort: 80

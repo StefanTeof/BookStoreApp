@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: app
+  template:
+    metadata:
+      labels:
+        tier: app
+    spec:
+      containers:
+        - name: spring-service
+          image: stefanteof/libapp-backend:latest
+          ports:
+            - containerPort: 8181
+          envFrom:
+            - configMapRef:
+                name: app-env-config
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://db-service:3306/library

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-client-svc
+spec:
+  type: NodePort
+  selector:
+    component: ui
+  ports:
+    - port: 80               # Internal service port
+      targetPort: 80         # React app's container port
+      nodePort: 31000        # Exposed on http://localhost:31000
