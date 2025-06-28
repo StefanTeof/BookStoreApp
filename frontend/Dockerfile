@@ -1,11 +1,13 @@
-FROM node:20-alpine AS build
-WORKDIR /app
+# 1. Build Phase
+FROM node:20.11.1-slim AS builder
+WORKDIR /usr/src/frontend
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
-RUN npm run build
+RUN npm run build && mv build dist
 
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
+# 2. Runtime Phase
+FROM nginx:1.25.3-alpine
+COPY --from=builder /usr/src/frontend/dist /usr/share/nginx/html
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]

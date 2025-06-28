@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  mysql:
+  db:
     image: mysql:8.0
-    container_name: mysql-library
+    container_name: db_service
     ports:
       - "3306:3306"
     environment:
@@ -12,31 +12,31 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
-      - mysql-data:/var/lib/mysql
+      - db-storage:/var/lib/mysql
 
-  backend:
+  app-server:
+    container_name: spring-app
+    image: spring-library-app
     build:
       context: .
-    image: library-backend
-    container_name: library-backend
-    depends_on:
-      - mysql
     ports:
-      - "9093:9093"
+      - "8181:8181"
     environment:
       SPRING_PROFILES_ACTIVE: mysql
+    depends_on:
+      - db
     restart: always
 
-  frontend:
+  web-client:
+    container_name: react-client
+    image: library-ui
     build:
       context: ../frontend
-    image: library-frontend
-    container_name: library-frontend
     ports:
-      - "3000:80"
+      - "3001:8080"
     depends_on:
-      - backend
+      - app-server
     restart: always
 
 volumes:
-  mysql-data:
+  db-storage:
