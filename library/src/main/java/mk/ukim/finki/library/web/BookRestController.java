@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(
-        origins = {"http://localhost:3000"}
+        origins = {"http://localhost:3000", "http://localhost:8080"}
 )
 @RequestMapping(
         path = {"/api/books", "/api"}

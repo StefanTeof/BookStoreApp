@@ -1,5 +1,7 @@
 # 1. Build Phase
 FROM node:20.11.1-slim AS builder
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 WORKDIR /usr/src/frontend
 COPY package*.json ./
 RUN npm ci
